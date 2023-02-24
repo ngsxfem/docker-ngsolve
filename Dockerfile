@@ -12,14 +12,16 @@ RUN adduser --disabled-password \
     --gecos "Default user" \
     --uid ${NB_UID} \
     ${NB_USER}
-
+RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 RUN apt-get update
-RUN apt-get install -y software-properties-common
+RUN apt-get install -yq software-properties-common
 RUN add-apt-repository universe
 RUN add-apt-repository ppa:ngsolve/nightly -y
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get install ngsolve -y
 RUN apt-get install npm nodejs -y
+RUN apt-get install pandoc -y
         
 RUN apt-get install vim emacs -y
 RUN apt-get install -y cmake git python3-pip
